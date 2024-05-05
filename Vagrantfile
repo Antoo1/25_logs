@@ -1,13 +1,13 @@
 MACHINES = {
   :"web" => {
-              :box_name => "ubuntu/jammy64",
+              :box_name => "generic/ubuntu2204",
               :cpus => 1,
               :memory => 512,
               :ip => "192.168.56.222",
               :forwarded_port => 222,
-            }
+            },
   :"log" => {
-              :box_name => "ubuntu/jammy64",
+              :box_name => "generic/ubuntu2204",
               :cpus => 1,
               :memory => 2048,
               :ip => "192.168.56.223",
@@ -25,7 +25,7 @@ Vagrant.configure("2") do |config|
       box.vm.box_version = boxconfig[:box_version]
       box.vm.host_name = boxname.to_s
 
-      box.vm.provider "virtualbox" do |v|
+      box.vm.provider "libvrt" do |v|
         v.memory = boxconfig[:memory]
         v.cpus = boxconfig[:cpus]
       end
