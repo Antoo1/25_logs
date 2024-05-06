@@ -1,7 +1,14 @@
 - name: NGINX | Install and configure NGINX
-  hosts: nginx
+  hosts: web
   become: true
 
   roles:
     - install_nginx
+
+- name: rsyslog | Install and configure log
+  hosts: log
+  become: true
+
+  roles:
+    - rsyslog
 

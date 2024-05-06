@@ -1,0 +1,35 @@
+---
+# tasks file for rsyslog
+
+
+- name: update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install rsyslog package from repo
+  apt:
+    name: rsyslog
+    state: latest
+  # notify:
+  #   - restart nginx
+  # tags:
+  #   - nginx-packeges
+  #   - packages
+# - name: NGINX | Create NGINX config file from template
+#   template:
+#     src: templates/nginx.conf.j2
+#     dest: /etc/nginx/nginx.conf
+#   notify:
+#     - reload nginx
+#   tags:
+#     - nginx-configuration
+
+- name: turn on reception logs on 514 port
+  template:
+    src: templates/rsyslog.conf.j2
+    dest: /etc/rsyslog.conf
+  notify:
+    - restart rsyslog
+# - name: restart rsyslog
+# 
