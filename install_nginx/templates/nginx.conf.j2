@@ -11,9 +11,10 @@ http {
 
         location / {
         }
+        
+        error_log  /var/log/nginx/error.log;
+        error_log  syslog:server={{ log_server_ip }}:{{ log_server_port }},tag=nginx_error;
+        access_log syslog:server={{ log_server_ip }}:{{ log_server_port }},tag=nginx_access,severity=info combined;
+
     }
 }
-
- error_log  /var/log/nginx/error.log;
- error_log  syslog:server={{ log_server_ip }}:{{ log_server_port }},tag=nginx_error;
- access_log syslog:server={{ log_server_ip }}:{{ log_server_port }},tag=nginx_access,severity=info combined;

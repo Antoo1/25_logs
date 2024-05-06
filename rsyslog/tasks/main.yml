@@ -11,25 +11,11 @@
   apt:
     name: rsyslog
     state: latest
-  # notify:
-  #   - restart nginx
-  # tags:
-  #   - nginx-packeges
-  #   - packages
-# - name: NGINX | Create NGINX config file from template
-#   template:
-#     src: templates/nginx.conf.j2
-#     dest: /etc/nginx/nginx.conf
-#   notify:
-#     - reload nginx
-#   tags:
-#     - nginx-configuration
 
 - name: turn on reception logs on 514 port
   template:
-    src: templates/rsyslog.conf.j2
-    dest: /etc/rsyslog.conf
+    src: templates/{{ RSYSLOG_TEMPLATE }}
+    dest: /etc/rsyslog.d/rsyslog_server.conf
   notify:
     - restart rsyslog
-# - name: restart rsyslog
-# 
+  
