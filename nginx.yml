@@ -1,0 +1,25 @@
+- name: NGINX | Install and configure NGINX
+  hosts: web
+  become: true
+
+  roles:
+    - install_nginx
+
+- name: rsyslog | Install and configure log
+  hosts: log
+  become: true
+  vars:
+    - RSYSLOG_TEMPLATE: rsyslog_server.conf.j2
+
+  roles:
+    - rsyslog
+ 
+- name: rsyslog | Install and configure log
+  hosts: extravm
+  become: true
+  vars:
+    - RSYSLOG_TEMPLATE: rsyslog_client.conf.j2
+
+  roles:
+    - rsyslog
+ 

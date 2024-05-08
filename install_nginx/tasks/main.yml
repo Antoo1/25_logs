@@ -1,0 +1,24 @@
+---
+# tasks file for nginx
+- name: update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install nginx package from repo
+  apt:
+    name: nginx
+    state: latest
+  notify:
+    - restart nginx
+  tags:
+    - nginx-packeges
+    - packages
+- name: NGINX | Create NGINX config file from template
+  template:
+    src: templates/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify:
+    - reload nginx
+  tags:
+    - nginx-configuration

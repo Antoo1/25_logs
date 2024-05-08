@@ -1,0 +1,21 @@
+---
+# tasks file for rsyslog
+
+
+- name: update apt cache
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install rsyslog package from repo
+  apt:
+    name: rsyslog
+    state: latest
+
+- name: turn on reception logs on 514 port
+  template:
+    src: templates/{{ RSYSLOG_TEMPLATE }}
+    dest: /etc/rsyslog.d/rsyslog_server.conf
+  notify:
+    - restart rsyslog
+  
